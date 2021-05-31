@@ -1,0 +1,6 @@
+Applicative-order: 0 and (p) are evaluated before test is applied. (p)
+will evaluate to (p) indefinitely. Therefore, test will never be
+applied.
+
+Normal-order: (test 0 (p)) expands to (if (= 0 0) 0 (p)). (= 0 0)
+evaluates to true, so 0 is returned. (p) is never evaluated.

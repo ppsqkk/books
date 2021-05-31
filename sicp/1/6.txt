@@ -1,0 +1,6 @@
+(sqrt 9)
+(sqrt-iter 1.0 9)
+(new-if (good-enough? 1.0 9) 1.0 (sqrt-iter (improve 1.0 9) 9))
+
+Since Lisp uses applicative-order evaluation, the else-clause will be
+evaluated indefinitely.
