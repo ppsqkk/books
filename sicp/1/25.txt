@@ -1,0 +1,4 @@
+She is correct in that her procedure will have the same order of growth.
+However, the results of fast-expt can get very large very quickly,
+whereas the original procedure manages the size by taking the remainder
+on each recursion step.

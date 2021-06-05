@@ -1,0 +1,25 @@
+x = (1 + sqrt(5)) / 2
+y = (1 - sqrt(5)) / 2
+
+Statement: Fib(n) = (x^n - y^n) / sqrt(5)
+
+Basis:
+Fib(0) = (1 - 1) / sqrt(5) = 0
+Fib(1) = ((1 + sqrt(5)) / 2 - (1 - sqrt(5)) / 2) / sqrt(5) = 1
+
+Induction:
+Assume the statement holds true for all n from 0 to n.
+Prove Fib(n + 1) = (x^(n + 1) - y^(n + 1)) / sqrt(5)
+Fib(n + 1) = Fib(n) + Fib(n - 1)
+Fib(n + 1) = (x^n - y^n) / sqrt(5) +
+             (x^(n - 1) - y^(n - 1)) / sqrt(5)
+Fib(n + 1) = (x^(n - 1) * (x + 1) - y^(n - 1) * (y + 1)) / sqrt(5)
+x^2 = (3 + sqrt(5)) / 2 = x + 1
+y^2 = (3 - sqrt(5)) / 2 = y + 1
+Fib(n + 1) = (x^(n - 1) * x^2 - y^(n - 1) * y^2) / sqrt(5)
+Fib(n + 1) = (x^(n + 1) - y^(n + 1)) / sqrt(5)
+
+abs(x^n / sqrt(5) - Fib(n)) < 1 / 2
+abs(x^n / sqrt(5) - (x^n - y^n) / sqrt(5)) < 1 / 2
+abs(y^n / sqrt(5)) < 1 / 2
+This is true for all n.

@@ -1,0 +1,4 @@
+a. 5 times
+b.
+Order of growth of space: O(log(a))
+Order of growth of time: O(log(a))

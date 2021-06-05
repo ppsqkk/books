@@ -1,0 +1,17 @@
+Order of growth of space:
+theta(a), where a is the amount.
+The maximum depth of the tree is proportional to a. If the smallest
+denomination of coin is x, for example, the maximum depth is
+ceil(a / x) + 1.
+
+Order of growth of number of steps:
+theta(a^n), where n is the number of kinds of coins.
+If the number of coins is 1, we call cc ceil(a / x) * 2 + 1 times,
+where x is the denomination of the coin. This has order of growth
+theta(a). If the number of coins is 2, we call cc with second argument
+2 ceil(a / x_1) * 2 + 1 times, where x_1 is the denomination of the
+first coin. This has order of growth theta(a). For each of these, we
+call cc with second argument 1 once, and we know that calling cc with
+one of coin has order of growth theta(a). Therefore, the entire thing
+has order of growth theta(a^2). This reasoning can be extended to n
+coins, giving theta(a^n).

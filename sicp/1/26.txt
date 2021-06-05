@@ -1,0 +1,3 @@
+The number of times we need to calculate (expmod base 1 m) is
+approximately 2^(log base 2 of exp), or exp. This is because the
+process is tree-recursive with a depth of about log base 2 of exp.
