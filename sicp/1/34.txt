@@ -1,0 +1,5 @@
+(f f)
+(f 2)
+(2 2)
+
+This doesn't work because 2 is not a procedure.
