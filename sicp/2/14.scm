@@ -1,0 +1,70 @@
+#lang sicp
+
+(define (make-interval a b) (cons a b))
+(define (lower-bound c) (car c))
+(define (upper-bound c) (cdr c))
+
+(define (make-center-width c w)
+  (make-interval (- c w) (+ c w)))
+(define (center i)
+  (/ (+ (lower-bound i) (upper-bound i)) 2))
+(define (width i)
+  (/ (- (upper-bound i) (lower-bound i)) 2))
+
+(define (make-center-percent c p)
+  (make-center-width c (* c (/ p 100))))
+(define (percent i)
+  (* (/ (width i) (center i)) 100))
+
+(define (mul-interval x y)
+  (let ((p1 (* (lower-bound x) (lower-bound y)))
+        (p2 (* (lower-bound x) (upper-bound y)))
+        (p3 (* (upper-bound x) (lower-bound y)))
+        (p4 (* (upper-bound x) (upper-bound y))))
+    (make-interval (min p1 p2 p3 p4)
+                   (max p1 p2 p3 p4))))
+
+(define (div-interval x y)
+  (mul-interval
+   x
+   (make-interval (/ 1.0 (upper-bound y))
+                  (/ 1.0 (lower-bound y)))))
+
+(define (print-interval x)
+  (display "(")
+  (display (lower-bound x))
+  (display ", ")
+  (display (upper-bound x))
+  (display ")"))
+
+(define x (make-interval 2 3))
+(display "x = ")
+(print-interval x)
+(newline)
+(newline)
+
+(define y (div-interval x x))
+(display "y = x / x")
+(newline)
+(display "y = ")
+(print-interval y)
+(newline)
+(display "y should be (1, 1), as dividing any variable by itself should be 1.")
+(newline)
+(newline)
+
+(display "tolerance(y) = ")
+(display (percent y))
+(newline)
+(display "tolerance(x) + tolerance(x) = ")
+(display (+ (percent x) (percent x)))
+(newline)
+(display "tolerance(y) is about tolerance(x) + tolerance(x), ")
+(display "when it really should be 0.")
+(newline)
+(newline)
+
+(display "The reason why there is a difference between par1 and par2 is: ")
+(display "par2 assumes that any variable divided by itself is 1, ")
+(display "but Alyssa's interval arithmetic does not implement that.")
+(newline)

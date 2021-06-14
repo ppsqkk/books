@@ -1,0 +1,31 @@
+x = (a, b)
+y = (c, d)
+width(x) = (b - a) / 2
+width(y) = (d - c) / 2
+x + y = (a + c, b + d)
+width(x + y) = ((b + d) - (a + c)) / 2
+             = (b - a + d - c) / 2
+             = (b - a) / 2 + (d - c) / 2
+             = width(x) + width(y)
+
+z = (-d, -c)
+width(z) = (d - c) / 2
+         = width(y)
+x - y = x + z
+width(x - y) = width(x + z)
+             = width(x) + width(z)
+             = width(x) + width(y)
+
+x1 = (0, 1)
+y1 = (0, 1)
+width(x1) = width(y1) = 0.5
+x1 * y1 = (0, 1)
+width(x1 * y1) = 0.5
+
+x2 = (0, 1)
+y2 = (1, 2)
+width(x2) = width(y2) = 0.5
+If the width of the product is a function of the widths of the intervals
+multiplied, width(x2 * y2) should equal width(x1 * y1).
+x2 * y2 = (0, 2)
+width(x2 * y2) = 1 != width(x1 * y1)

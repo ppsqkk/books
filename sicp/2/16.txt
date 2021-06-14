@@ -1,0 +1,8 @@
+See 2.14 and 2.15 for the first part of this question. The task is
+impossible because interval arithmetic and regular arithmetic
+operate under different rules. It is probably possible to improve
+interval arithmetic, provided there is some way to distinguish
+between equivalent variables and equivalent values (see 2.15). For
+example, (div-interval x x) should be equivalent to
+(make-interval 1 1), but (div-interval x y) should be calculated as
+shown in subsection 2.1.4.

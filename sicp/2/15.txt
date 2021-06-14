@@ -1,0 +1,6 @@
+She is correct: par2 is the "better" program. As noted in exercise 2.14,
+par2 assumes that (div-interval r1 r1) is the same as
+(make-interval 1 1), which is correct. The same variable, divided by
+itself, should always yield 1, even if the value of the variable is
+uncertain. On the other hand, if two distinct variables which happen
+to have the same intervals are divided, the answer is not necessarily 1.

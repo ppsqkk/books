@@ -1,0 +1,14 @@
+x is a positive interval with center a and tolerance p.
+y is a positive interval with center b and tolerance q.
+x = (a - a * p / 100, a + a * p / 100)
+  = (a * (1 - p / 100), a * (1 + p / 100))
+y = (b - b * q / 100, b + b * q / 100)
+  = (b * (1 - q / 100), b * (1 + q / 100))
+x * y = (a * b * (1 - (p + q) / 100 + p * q / 10000),
+         a * b * (1 + (p + q) / 100 + p * q / 10000))
+center(x * y) = a * b * (2 + 2 * p * q / 10000) / 2
+              = a * b * (1 + p * q / 10000)
+width(x * y) = a * b * (2 * (p + q) / 100) / 2
+             = a * b * (p + q) / 100
+tolerance(x * y) = ((p + q) / 100) / (1 + pq / 10000) * 100
+When p and q are small, this is approximately equal to p + q.
