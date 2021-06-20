@@ -1,0 +1,23 @@
+I found that it helped to redefine what a list is in my own words. A
+list is an ordered sequence of pairs. The car of the first pair points
+to the first item in the list. The cdr of the first pair points to the
+second pair. The car of the second pair points to the second item in the
+list. The cdr of the second pair points to the third pair, and so on.
+The car of the last pair points to the last item in the list, and the
+cdr points to nil.
+
+The list constructor in Scheme takes an arbitrary number of arguments
+and makes a list out of them.
+
+Interpreter output: (1 (2 (3 4)))
+
+Box-and-pointer:
+There are two items in this list: 1 and (list 2 (list 3 4)). Therefore,
+the car of the first pair points to 1, the cdr of the first pair points
+to the second pair, the car of the second pair points to (list 2 (list 3
+4)), and the cdr of the second pair points to nil. (list 2 (list 3 4))
+is itself a list, which is a sequence of pairs. Therefore, the car of
+the second pair points to another pair.
+
+Tree:
+This is easy.

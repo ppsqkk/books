@@ -1,0 +1,12 @@
+First question:
+If items is (1 2 3 4), answer will successively contain:
+()
+(1)
+(4 1)
+(9 4 1)
+(16 9 4 1)
+This is because cons adds to the front of the list. Therefore, the last element
+in items will be added to the front of the list.
+
+Second question:
+This doesn't create a list, because (square (car things)) is never a list.
