@@ -1,0 +1,4 @@
+We just convert the trees to ordered lists with tree->list, use
+intersection-set and union-set for the ordered lists representation
+(Exercise 2.62 and the associated section), and convert back to a
+balanced binary tree with list->tree.

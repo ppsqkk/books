@@ -1,0 +1,6 @@
+a.
+The results are the same. List produced for all trees in Figure 2.16:
+'(1 3 5 7 9 11).
+
+b.
+Each procedure recursively calls itself about n times.

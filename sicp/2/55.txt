@@ -1,0 +1,4 @@
+''abracadabra
+(quote (quote abracadabra))
+
+This is a list were the first element is a literal quote.

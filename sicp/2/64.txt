@@ -1,0 +1,20 @@
+a.
+The idea is: we make the left subtree with the first (n - 1) // 2
+elements, where // represents floor division. We subtract 1 because one
+element will not be present in either the left or right subtree: namely,
+the root element. For example, in (list->tree '(1 2 3 4 5)), 3 will be
+the root element, so we need only consider placing the remaining 4
+elements in the left or right subtree. The decision to use floor
+division is arbitrary. It also means that the left subtree will never
+have more elements than the right subtree. This will be helpful when
+determining the resulting tree. Finally, we divide by 2 to preserve the
+property of balanced binary trees: "the left and the right subtree of
+every tree have approximately the same number of elements". Once that
+left subtree is created, the first of the remaining elements is
+designated as the root, and the remainder of the remaining elements is
+used to create the right subtree.
+
+(5 (1 () (3 () ())) (9 (7 () ()) (11 () ())))
+
+b.
+We recursively call partial-tree approximately n times.

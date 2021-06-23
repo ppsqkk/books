@@ -1,0 +1,6 @@
+For the most frequent symbol, we check if it is part of the symbol list
+of the left branch, which has n - 1 symbols. Therefore, the order of
+growth of time is O(n).
+
+For the least frequent symbol, we check the symbol lists of all left
+branches in the tree. The order of growth of time is about O(n^2).

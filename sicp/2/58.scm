@@ -1,0 +1,98 @@
+#lang sicp
+
+(define (deriv exp var)
+  (cond ((number? exp) 0)
+        ((variable? exp) (if (same-variable? exp var) 1 0))
+        ((sum? exp) (make-sum (deriv (addend exp) var)
+                              (deriv (augend exp) var)))
+        ((product? exp)
+         (make-sum
+           (make-product (multiplier exp)
+                         (deriv (multiplicand exp) var))
+           (make-product (deriv (multiplier exp) var)
+                         (multiplicand exp))))
+        (else
+         (error "unknown expression type: DERIV" exp))))
+
+(define (=number? exp num) (and (number? exp) (= exp num)))
+(define (variable? x) (symbol? x))
+(define (same-variable? v1 v2)
+  (and (variable? v1) (variable? v2) (eq? v1 v2)))
+
+; a
+; (define (make-sum a1 a2)
+;   (cond ((=number? a1 0) a2)
+;         ((=number? a2 0) a1)
+;         ((and (number? a1) (number? a2))
+;          (+ a1 a2))
+;         (else (list a1 '+ a2))))
+; (define (sum? x)
+;   (and (pair? x) (pair? (cdr x)) (eq? (cadr x) '+)))
+; (define (addend s) (car s))
+; (define (augend s) (caddr s))
+
+; (define (make-product m1 m2)
+;   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+;         ((=number? m1 1) m2)
+;         ((=number? m2 1) m1)
+;         ((and (number? m1) (number? m2)) (* m1 m2))
+;         (else (list m1 '* m2))))
+; (define (product? x)
+;   (and (pair? x) (pair? (cdr x)) (eq? (cadr x) '*)))
+; (define (multiplier p) (car p))
+; (define (multiplicand p) (caddr p))
+
+; b
+(define (term? exp) (or (number? exp) (variable? exp)))
+(define (infix->prefix exp)
+  (cond ((term? exp) exp)
+        ((null? (cdr exp)) (infix->prefix (car exp)))
+        (else (list (cadr exp)
+                    (infix->prefix (car exp))
+                    (infix->prefix (cddr exp))))))
+(define (prefix->infix exp)
+  (define (prec exp) ; precedence
+    (cond ((term? exp) 0)
+          ((eq? (car exp) '+) 1)
+          ((eq? (car exp) '*) 2)))
+  (if (term? exp)
+      exp
+      (let ((left (cadr exp))
+            (right (caddr exp))
+            (prec-exp (prec exp)))
+        ((if (not (< (prec left) prec-exp)) append cons)
+         (prefix->infix left)
+         (cons (car exp)
+               ((if (not (< (prec right) prec-exp)) append cons)
+                (prefix->infix right)
+                '()))))))
+
+(define (make-sum a1 a2)
+  (cond ((=number? a1 0) a2)
+        ((=number? a2 0) a1)
+        ((and (number? a1) (number? a2))
+         (+ a1 a2))
+        (else (prefix->infix
+               (list '+
+                     (infix->prefix a1)
+                     (infix->prefix a2))))))
+(define (sum? x)
+  (let ((p (infix->prefix x)))
+    (and (pair? p) (eq? (car p) '+))))
+(define (addend s) (prefix->infix (cadr (infix->prefix s))))
+(define (augend s) (prefix->infix (caddr (infix->prefix s))))
+
+(define (make-product m1 m2)
+  (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+        ((=number? m1 1) m2)
+        ((=number? m2 1) m1)
+        ((and (number? m1) (number? m2)) (* m1 m2))
+        (else (prefix->infix
+               (list '*
+                     (infix->prefix m1)
+                     (infix->prefix m2))))))
+(define (product? x)
+  (let ((p (infix->prefix x)))
+    (and (pair? p) (eq? (car p) '*))))
+(define (multiplier p) (prefix->infix (cadr (infix->prefix p))))
+(define (multiplicand p) (prefix->infix (caddr (infix->prefix p))))
