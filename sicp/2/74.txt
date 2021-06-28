@@ -1,0 +1,40 @@
+a.
+(define (get-record employee file)
+  (let ((proc (get 'get-record (list (type-tag file)))))
+    (proc employee (contents file))))
+
+The personnel file should contain a tag corresponding to the division.
+For example, the tag for the personnel files of the first division could
+be 'division-1-file. Additionally, the division needs to have installed
+their own get-record procedure into a global table, for example with the
+call (put 'get-record '(division-1-file) <procedure>) for the first
+division.
+
+We don't use apply-generic here because employee is an untagged string.
+
+b.
+(define (get-salary record)
+  (apply-generic 'get-salary record))
+
+Records need to be tagged corresponding to the division. The tag should
+be different for files and records, so as to distinguish the two. For
+example, the tag for the records of the first division could be
+'division-1-record. Additionally, the division needs to have installed
+their own get-salary procedure into a global table, for example with the
+call (put 'get-salary '(division-1-record) <procedure>) for the first
+division.
+
+c.
+(define (find-employee-record employee file-list)
+  (if (null? file-list)
+      false
+      (let ((r (get-record employee (car file-list))))
+        (if (equal? r false)
+            (find-employee-record employee (cdr file-list))
+            r))))
+
+This requires that all division-specific get-record procedures return false if
+the record is not in the file.
+
+d.
+Answered above.

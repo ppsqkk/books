@@ -1,0 +1,45 @@
+Using the complex number example.
+
+Explicit dispatch:
+
+To add a new complex number type, we need to implement all of the
+complex number selectors (real-part, imag-part, magnitude, angle). We
+need to make sure that the names of the newly implemented selectors
+don't conflict with any existing names. Finally, we need to add new
+clauses to the generic selectors to check for the new type and apply the
+correct procedure.
+
+To add a new complex number operation, we can 1) implement it using the
+generic selectors, thus removing the need for explicit dispatch, or 2)
+implement it separately for a subset of types (or combinations of types)
+and perform explicit dispatch as shown in subsection 2.4.2. The
+considerations outlined in the previous paragraph apply equally.
+
+The next two responses will only consider the addition of complex number
+operations which are implemented separately per type.
+
+Data-directed:
+
+Adding a new complex number type still requires that all complex number
+selectors be implemented, but there is no longer any naming restriction
+because everything is wrapped up in a package. The newly implemented
+selectors must be installed into the table. Because of apply-generic,
+none of the generic selectors need to be rewritten.
+
+To add a new complex number operation, we can we wrap it in a package
+(again removing the naming restriction) and install it into the table.
+Nothing needs to be rewritten.
+
+Message passing:
+
+Adding a new complex number type is easy because the dispatch is
+implemented as a part of the type itself. Therefore, the generic
+selectors don't need to be rewritten.
+
+Adding a new complex number operation means adding an implementation of
+the operation to each type, which means changing the code for each type.
+
+Data-directed seems to be the best approach in both cases. Message
+passing is restrictive because "it permits only generic procedures of
+one argument". Also, as mentioned above, adding new operations requires
+changing existing code.
