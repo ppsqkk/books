@@ -1,0 +1,16 @@
+Trace:
+
+(magnitude z)
+(apply (get 'magnitude '(complex)) (map contents z))
+; (get 'magnitude '(complex)) is exactly the generic magnitude selector.
+; (map contents z) looks like '(rectangular 3 .4)
+; The 'complex tag is stripped off and magnitude is called recursively.
+
+(magnitude '(rectangular 3 . 4))
+(apply (get 'magnitude '(rectangular))
+       (map contents '(rectangular 3 . 4)))
+; (get 'magnitude '(rectangular)) is the magnitude defined inside
+; install-rectangular-package.
+; (map contents '(rectangular 3 . 4)) looks like '(3 . 4)
+; The 'rectangular tag is stripped off and the contents are sent to the
+; rectangular-specific magnitude.
