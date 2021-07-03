@@ -1,0 +1,29 @@
+Write-up for 86.scm
+
+We would like the parts of a complex number (real part, imaginary part,
+magnitude, angle) to be tagged data. The actual complex package does not
+determine representation, so we need to modify the rectangular and polar
+packages.
+
+Since we are using tagged data, we need to replace all primitive scheme
+procedures with generic procedures working on tagged data. Specifically,
+we need to replace square, sqrt, sin, cos, and atan. It really only
+makes sense to implement these for real numbers; due to the raising
+procedure we wrote in Exercise 8.24, however, they will also work for
+types lower in the tower. As always, we need to make sure that the names
+of the new generic procedures do not shadow the primitive procedures.
+
+We replace primitive procedures in the complex package in exactly the
+same way.
+
+We need to change the project procedure for complex numbers as well.
+Essentially, for a complex number z, we want to convert (real-part z)
+into a real number. Assuming that (real-part z) is lower in the tower
+than a real number, we can achieve this conversion with (add ((get 'make
+'real) 0) (real-part z)). (This introduces the perhaps unwanted
+restriction that any part of a complex number can only be as high as a
+real number in the tower.)
+
+Finally, we need to change the way that a real number is raised to a
+complex number. Specifically, we need to tag both the real and imaginary
+parts.
