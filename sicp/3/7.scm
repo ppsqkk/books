@@ -1,0 +1,37 @@
+#lang sicp
+
+(define (make-simple-account balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (define (dispatch m)
+    (cond ((eq? m 'withdraw) withdraw)
+          ((eq? m 'deposit) deposit)
+          (else (error "Unknown request: MAKE-ACCOUNT"
+                       m))))
+  dispatch)
+
+(define (make-password-protected-account simple-account password)
+  (define (verify-password p) (eq? p password))
+  (define (get-simple-account) simple-account)
+  (define (dispatch p m)
+    (cond ((eq? m 'verify-password) (lambda x (verify-password p)))
+          ((verify-password p)
+           (cond ((eq? m 'get-simple-account) get-simple-account)
+                 (else (simple-account m))))
+          (else (lambda x "Incorrect password"))))
+  dispatch)
+
+(define (make-account balance password)
+  (make-password-protected-account (make-simple-account balance) password))
+
+(define (make-joint account password new-password)
+  (if ((account password 'verify-password))
+      (make-password-protected-account ((account password 'get-simple-account))
+                                       new-password)
+      false))
