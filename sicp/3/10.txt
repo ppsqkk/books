@@ -1,0 +1,17 @@
+I'll skip most of the formalities.
+
+make-withdraw is bound to a procedure object in the global environment.
+(make-withdraw 100) creates a frame with initial-amount bound to 100.
+Call this frame I. Evaluating (let ((balance initial-amount)) ...) is
+the same as evaluating ((lambda (balance) ...) initial-amount).
+Evaluating the first subexpression (the operator) creates an unbound
+procedure object in I. This is immediately called, so a frame pointing
+to I is created with balance bound to initial-amount (in this case 100).
+Call this frame II. A procedure object with the body (lambda (amount)
+...) is created in II and bound to W1 in the global environment. Now,
+whenever W1 is called, it will resolve its variables by going from II to
+I, and finally to the global environment.
+
+The only difference between the two versions is that, in this version,
+we have a useless level of indirection, namely frame I, which has no
+bindings and thus serves no purpose.

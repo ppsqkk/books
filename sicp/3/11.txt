@@ -1,0 +1,9 @@
+Calling make-account creates a frame pointing to the global environment.
+Call that frame I. Procedure objects for withdraw, deposit, and dispatch
+are created in frame I, and acc is bound to the dispatch procedure
+object in the global environment. Calling acc creates a frame pointing
+to I, and the procedures returned from calling acc (withdraw and
+deposit) also create frames pointing I. I is where the local state is
+stored.
+
+Only the global environment is shared between acc and acc2.

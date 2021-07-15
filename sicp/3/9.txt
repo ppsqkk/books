@@ -1,0 +1,17 @@
+Recursive version:
+factorial is bound to a procedure object in the global environment.
+Calling (factorial 6) means resolving factorial to the procedure object,
+creating a frame with the global environment as its enclosing
+environment, binding n to 6 within that frame, and then actually
+performing the factorial procedure. Performing (factorial 6) involves
+performing (factorial 5), so we create another frame with the global
+environment as its enclosing environment, bind n to 5 within that frame,
+and then perform the factorial procedure again. In total, we will have 6
+frames for n in {1..6}, each enclosed by the global environment.
+
+Iterative version:
+factorial and fact-iter are bound to procedure objects in the global
+environment. Calling (factorial 6) involves the same steps as in the
+recursive version. This time, (factorial 6) calls out to fact-iter, and
+fact-iter is called 7 times, for a total of 8 frames enclosed by the
+global environment.
