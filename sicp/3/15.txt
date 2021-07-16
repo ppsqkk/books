@@ -1,0 +1,2 @@
+The car and cdr of z1 point to the same thing, so setting the caar of z1
+is will set the cadr as well.

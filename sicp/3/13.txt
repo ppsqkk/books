@@ -1,0 +1,2 @@
+It would recurse forever, as z does not contain a pair whose cdr is
+null.

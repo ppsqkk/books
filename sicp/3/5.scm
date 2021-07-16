@@ -25,5 +25,6 @@
 ; (define (square x) (* x x))
 ; (define (<= x y) (not (> x y)))
 ; (define trials 100000)
-; (estimate-integral (lambda (x y) (<= (+ (square (- x 5)) (square (- y 7))) (square 3)))
+; (estimate-integral (lambda (x y) (<= (+ (square (- x 5)) (square (- y 7)))
+;                                      (square 3)))
 ;                    2.0 8.0 4.0 10.0 trials)
