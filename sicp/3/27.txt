@@ -1,0 +1,29 @@
+In the global environment, we have memoize, make-table, lookup, and
+insert! bound to procedure objects. When we define memo-fib, we call
+memoize. We create a frame (call it frame I) pointing to the global
+environment, and we bind f to the procedure object specified by the
+argument to memoize. let creates another frame (call it frame II)
+pointing to I, with table bound to the value of (make-table).
+Additionally, a procedure object is created in frame II, and that is
+what memo-fib points to. Calling memo-fib, then, will create a frame
+pointing to II. References to table will be resolved in II, and
+references to f will be resolved in I. This means that all calls to
+memo-fib share the same table.
+
+It is easy to see that after a call to (memo-fib n), all values (fib i)
+for i from 0 to n are tabulated. When n >= 2, (memo-fib n) recursively
+calls (memo-fib (- n 1)) and (memo-fib (- n 2)). If (memo-fib (- n 1))
+is evaluated first, all values (fib i) for i from 0 to (- n 1) are
+tabulated, including (- n 2). Therefore, (memo-fib (- n 2)) is
+inconsequential. If (memo-fib (- n 2)) is evaluated first, all values
+(fib i) for i from 0 to (- n 2) are tabulated. If n - 1 >= 2, then
+(memo-fib (- n 1)) recursively calls (memo-fib (- n 2)) and (memo-fib (-
+n 3)), both of which are tabulated. Basically, each time we call
+(memo-fib n) when n >= 2, only one recursive branch is consequential. In
+Figure 1.5, at each branching point, one of the branches is sheared off
+and not included in the calculation. This results in a linear structure
+rather than a tree structure.
+
+Defining memo-fib to be (memoize fib) does not work. For example,
+(memo-fib 2) would turn into (+ (fib 1) (fib 0)), and neither (fib 1)
+nor (fib 0) will be tabulated.
