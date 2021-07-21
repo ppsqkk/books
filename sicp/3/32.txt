@@ -1,0 +1,13 @@
+Suppose we have:
+
+(define a (make-wire))
+(define b (make-wire))
+(define c (make-wire))
+(set-signal! a 0)
+(set-signal! b 1)
+(and-gate a b c)
+
+Then, (set-signal! a 1) will add an action procedure which sets c to 1,
+and (set-signal! b 0) will add an action procedure which sets c to 0. If
+we used a regular list instead of a queue, c would be set to 0 first,
+then to 1.
