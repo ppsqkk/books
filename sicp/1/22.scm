@@ -32,7 +32,7 @@
 (define (search-for-primes start end)
   (cond ((even? start) (search-for-primes (+ start 1) end))
         ((not (> start end)) (timed-prime-test start)
-			     (search-for-primes (+ start 2) end))))
+                             (search-for-primes (+ start 2) end))))
 
 ; Larger than 1000: 1009, 1013, 1019
 ; Larger than 10000: 10007, 10009, 10037

@@ -38,7 +38,7 @@
 (define (search-for-primes start end)
   (cond ((even? start) (search-for-primes (+ start 1) end))
         ((not (> start end)) (timed-prime-test start)
-			     (search-for-primes (+ start 2) end))))
+                             (search-for-primes (+ start 2) end))))
 
 ; I would expect that testing primes around 1000000 would be around 2 times
 ; slower than testing primes around 1000.

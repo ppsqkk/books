@@ -3,7 +3,7 @@
 (define (filtered-accumulate filter combiner null-value term a next b)
   (define (iter a result)
     (cond ((> a b) result)
-	  ((filter a) (iter (next a) (combiner (term a) result)))
+          ((filter a) (iter (next a) (combiner (term a) result)))
           (else (iter (next a) result))))
   (iter a null-value))
 
